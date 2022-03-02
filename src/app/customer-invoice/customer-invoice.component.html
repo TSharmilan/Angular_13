@@ -1,0 +1,132 @@
+<h3 class="d-flex justify-content-center">Welcome to MC Computer Solutions</h3>
+<h5 class="d-flex justify-content-center">Please enter the details for print receipts!</h5>
+
+<div>
+    <br/>
+    <div class="form-group">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" class="form-control" id="customerName" [(ngModel)]="CustomerName">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" maxlength="10" class="form-control" id="phoneNumber" [(ngModel)]="PhoneNumber">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" [(ngModel)]="Address">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="nicNumber">NIC Number</label>
+                        <input type="text" maxlength="12" class="form-control" id="nicNumber" [(ngModel)]="NIC">
+                    </div>
+                </div>
+
+                <br/><br/>
+                <div class="row">
+                    <div class="row col-md-6">
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Items</mat-label>
+                                <mat-select >
+                                    <mat-option *ngFor="let product of productList" [value]="product">
+                                        {{product.productName}}
+                                      </mat-option>
+                                    <!-- <mat-option value="volvo">Volvo</mat-option>
+                                    <mat-option value="saab">Saab</mat-option>
+                                    <mat-option value="mercedes">Mercedes</mat-option>
+                                    <mat-option value="audi">Audi</mat-option> -->
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" [(ngModel)]="Quantity">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" id="price" [(ngModel)]="Price">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2" style="text-align: right;">
+                                <button type="submit" class="btn btn-primary" (click)="addItemToList()">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-6" >
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dataItem of ItemList">
+                                    <td>{{dataItem.productName}}</td>
+                                    <td>{{dataItem.Quantity}}</td>
+                                    <td>{{dataItem.Price}}</td>
+                                    <td>{{dataItem.Total}}</td>
+                                </tr>
+                                <tr>  
+                                    <td ></td>  
+                                    <td ><b>Total:</b></td>  
+                                    <td ></td>  
+                                    <td ><b>{{NetTotal}}</b></td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-1" style="text-align: right;">
+                    <button type="submit" class="btn btn-primary" printSectionId="print" ngxPrint (click)="savePurchaseDetails()">Print</button>
+                </div>
+                <div class="col-md-1" style="text-align: left;">
+                    <button type="submit" class="btn btn-primary" (click)="clearList()">Clear</button>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row col-md-6" id="print" hidden>
+                <h2 class="uppercase" style="text-align-last: center;"><b>MC Computer Solutions</b></h2>
+                <p style="text-align-last: center;"><b>Phone: +94771234567</b></p>
+                <p style="text-align-last: center;"><b>Date: {{purchaseDate | date: 'dd-MM-yyyy'}}</b></p>
+                <br/>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Item Name</th>
+                            <th style="width: 10%;">Quantity</th>
+                            <th style="width: 20%;">Unit Price</th>
+                            <th style="width: 20%;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dataItem of ItemList">
+                            <td style="width: 50%; text-align: center;">{{dataItem.Item}}</td>
+                            <td style="width: 10%; text-align: right;">{{dataItem.Quantity}}</td>
+                            <td style="width: 10%; text-align: center;">{{dataItem.Price}}</td>
+                            <td style="width: 20%; text-align: center;">{{dataItem.Total}}</td>
+                        </tr>
+                        <tr>  
+                            <td style="width: 50%;"></td>  
+                            <td style="width: 10%;"><b>Total:</b></td>  
+                            <td style="width: 10%; text-align: center;"></td>  
+                            <td style="width: 20%; text-align: center;"><b>{{NetTotal}}</b></td>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
